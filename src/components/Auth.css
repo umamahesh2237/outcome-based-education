@@ -1,0 +1,345 @@
+/* Auth Container */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #74ebd5, #acb6e5); /* Slightly more vibrant gradient */
+}
+
+/* Card Styling */
+.auth-card {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); /* Increased shadow for depth */
+  max-width: 400px;
+  width: 100%;
+  margin: 20px;
+  animation: fadeInUp 0.6s ease;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Form Styling */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: bold;
+  font-size: 26px; /* Reduced font size for balance */
+}
+
+/* Input Styling */
+.form-input {
+  margin-bottom: 15px;
+  padding: 12px 15px;
+  font-size: 16px;
+  border-radius: 8px; /* Slightly reduced radius */
+  border: 1px solid #ccc;
+  transition: border-color 0.3s;
+}
+
+.form-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.2); /* Enhanced shadow for focus */
+}
+
+/* Button Styling */
+.auth-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.1s;
+  margin-top: 10px;
+}
+
+.auth-button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.2); /* Increased shadow for hover */
+  transform: scale(1.05);
+}
+
+.auth-button:active {
+  transform: scale(0.98);
+}
+
+/* Links Styling */
+.auth-links {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.auth-links a {
+  color: #007bff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.auth-links a:hover {
+  text-decoration: underline;
+}
+
+/* Error Text */
+.error-text {
+  color: #ff4d4d;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: 240px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #e9ecef;
+  color: #333;
+  padding-top: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1); /* Slightly deeper shadow */
+}
+
+/* Sidebar Menu List */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 10px 0;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #333; /* Standard link color */
+  font-weight: bold;
+  display: block;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+  background-color: #d3e0f2; /* Light background change for hover */
+}
+
+.sidebar ul li b {
+  cursor: pointer;
+}
+
+/* Collapse Icon Styling */
+.collapse-icon {
+  position: absolute;
+  top: 20px;
+  left: 210px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 50%;
+  padding: 8px;
+  cursor: pointer;
+  transition: transform 0.3s, background-color 0.3s ease-in-out;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.collapse-icon:hover {
+  background-color: #0056b3;
+  transform: rotate(180deg);
+}
+
+/* Collapsed Sidebar */
+.sidebar.collapsed {
+  width: 70px;
+}
+
+.sidebar.collapsed ul li {
+  text-align: center;
+  padding: 15px 0;
+}
+
+.sidebar ul li span {
+  display: none;
+}
+
+/* Smooth collapse transition */
+.sidebar.collapsed + .content {
+  margin-left: 80px;
+}
+
+/* Dashboard Content */
+.dashboard-container {
+  display: flex;
+}
+
+.content {
+  margin-left: 260px;
+  padding: 20px;
+  flex-grow: 1;
+  transition: margin-left 0.3s ease;
+  background: linear-gradient(135deg, #74ebd5, #acb6e5); /* Same gradient as login/signup */
+  min-height: 100vh;
+}
+
+/* Logout Button */
+.logout-button {
+  background-color: #ff4d4d;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+.logout-button:hover {
+  background-color: #e60000;
+  transform: scale(1.05);
+}
+
+.logout-button:active {
+  transform: scale(0.98);
+}
+
+/* Input Field Styling with Labels */
+.input-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.input-field label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #333;
+}
+
+.input-field input,
+select {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s;
+}
+
+.input-field input:focus,
+select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Add Button Styling */
+.add-button {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+.add-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.add-button:active {
+  transform: scale(0.98);
+}
+
+.add-button svg {
+  margin-right: 5px;
+}
+
+/* Submit Button */
+.submit-button {
+  padding: 12px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+.submit-button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.submit-button:active {
+  transform: scale(0.98);
+}
+
+/* Adjust Form Layout */
+.regulation-form {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 0.6s ease;
+}
+
+.regulation-inputs {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.regulation-inputs .input-field {
+  flex: 1 0 120px;
+  min-width: 120px;
+}
+
+.regulation-inputs.expanded-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.regulation-inputs.expanded-fields .input-field {
+  flex: 1 0 250px; /* Larger width for expanded fields */
+  min-width: 250px; /* Ensure the minimum width is larger */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .regulation-inputs {
+    flex-direction: column;
+  }
+
+  .regulation-inputs.expanded-fields {
+    flex-direction: column; /* Stack inputs on smaller screens */
+  }
+  .content {
+    margin-left: 0;
+  }
+}
