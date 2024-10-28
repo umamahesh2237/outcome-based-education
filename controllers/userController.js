@@ -1,6 +1,6 @@
 const User = require('../models/User'); // Adjusted path for the User model
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+//const jwt = require('jsonwebtoken');
 const Regulation = require('../models/Regulation.js'); // Import the Regulation model
 
 // User sign-up functionality

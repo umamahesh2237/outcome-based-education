@@ -3,7 +3,7 @@ const router = express.Router();
 const courseController = require('../controllers/courseController');
 
 // Route to add a new course
-router.post('/add', courseController.addCourse);
+router.post('/addCourse', courseController.addCourse);
 
 // Route to get courses by regulation and semester
 router.get('/by-regulation-semester', courseController.getCoursesByRegulationAndSemester);

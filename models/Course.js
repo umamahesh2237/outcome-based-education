@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 
 const courseSchema = new mongoose.Schema({
   regulation: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Regulation',
+    type: String, // changed to String to match the format in the regulations collection
     required: true,
   },
   semester: {

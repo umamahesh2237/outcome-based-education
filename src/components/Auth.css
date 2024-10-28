@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #74ebd5, #acb6e5); /* Slightly more vibrant gradient */
+  background: linear-gradient(135deg, #74ebd5, #acb6e5);
 }
 
 /* Card Styling */
@@ -73,7 +73,7 @@
 }
 
 .auth-button:hover {
-  background-color: #0056b3;
+  background-color: #007bff;
   box-shadow: 0 8px 20px rgba(0, 123, 255, 0.2); /* Increased shadow for hover */
   transform: scale(1.05);
 }
@@ -195,7 +195,7 @@
   padding: 20px;
   flex-grow: 1;
   transition: margin-left 0.3s ease;
-  background: linear-gradient(135deg, #74ebd5, #acb6e5); /* Same gradient as login/signup */
+  background: linear-gradient(135deg, #74ebd5, #acb6e5);
   min-height: 100vh;
 }
 
@@ -312,7 +312,13 @@ select:focus {
   flex-wrap: wrap;
   margin-bottom: 10px;
 }
-
+.vertical-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
 .regulation-inputs .input-field {
   flex: 1 0 120px;
   min-width: 120px;

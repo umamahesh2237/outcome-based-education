@@ -75,7 +75,7 @@ function AddRegulation() {
                 onChange={(e) => handleInputChange(index, 'semester', e.target.value)}
                 required
               >
-                <option value="">Select Semester</option>
+                <option value="">Select</option>
                 <option value="1-1">1-1</option>
                 <option value="1-2">1-2</option>
                 <option value="2-1">2-1</option>

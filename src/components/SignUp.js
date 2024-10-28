@@ -56,8 +56,8 @@ const SignUp = () => {
     <div className="auth-container">
       <div className="auth-card">
         <form onSubmit={handleSubmit} className="auth-form">
-          <h1><center>Outcome-Based Education (Attainments)</center></h1><br></br>
-          <h2>Sign Up</h2>
+          <h2>Outcome-Based Education (Attainments)</h2>
+          <b><center> SIGN UP </center></b><br></br>
           <input
             className="form-input"
             name="firstName"

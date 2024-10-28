@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Outlet, Link } from 'react-router-dom';
 import { FaAngleDoubleLeft, FaAngleDoubleRight } from 'react-icons/fa';
-import axios from 'axios'; // Import axios for HTTP requests
+
 import './Auth.css';
 
 function AdminDashboard() {
@@ -11,24 +11,15 @@ function AdminDashboard() {
   const location = useLocation();
   // Fetch user's first name from backend
   useEffect(() => {
-    // Access the passed state data
-    console.log(location.state);
-    setFirstName(location.state.name);
-    // const fetchUserData = async () => {
-    //   try {
-    //     const response = await axios.get('http://localhost:5000/api/user/profile'); // Corrected API path
-    //     setFirstName(response.data.firstName); // Set the first name from response
-    //   } catch (error) {
-    //     console.error("Failed to fetch user data:", error);
-    //   }
-    // };
-    // fetchUserData();
-  }, []);
-
+    if (location.state && location.state.name) {
+      setFirstName(location.state.name);
+    } else {
+      console.warn("User name not found in location.state");
+    }
+  }, [location.state]);
   const handleLogout = () => {
     navigate('/');
   };
-
   // Toggle the sidebar collapse/expand
   const toggleSidebar = () => {
     setIsSidebarCollapsed(!isSidebarCollapsed);

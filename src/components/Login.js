@@ -1,59 +1,54 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './Auth.css'; 
-
+import './Auth.css';
 const Login = () => {
   const [formData, setFormData] = useState({
     userId: '',
     password: '',
   });
-  console.log(formData)
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const [apidata,setApidata]=useState(null);
+  //const [setApidata]=useState(null);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+  //const {setName} = useName();
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await fetch('http://localhost:5000/api/users/login', {
-      // const response = await fetch('http://localhost:5000/testing1', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
-
       const data = await response.json();
-      setApidata(data);
-      console.log("this is data", data);
+      //setApidata(data);
       if (response.ok) {
-        alert('Login successful');
-        alert(apidata);       
+        alert('Login successful');     
         if (data.role === 'Admin') {
-          alert('admin');
-          navigate('/admin',{state: data});
-        } else if (data.role === 'Faculty') {
-          navigate('/faculty');
+          console.log("Login response data:", data); // This should show if name is part of the response
+          if (data.name) {
+            navigate('/admin', { state: { name: data.name } });
+          } else {
+            console.warn('User name is missing in the response data');
+          }
         }
       } else {
         setError('User ID / Password is incorrect');
       }
     } catch (err) {
+      console.error('Error:', err);
       setError('Error connecting to the server');
     }
   };
-
   return (
     <div className="auth-container">
       <div className="auth-card">
         <form onSubmit={handleSubmit} className="auth-form">
-          <h1><center>Outcome-Based Education (Attainments)</center></h1><br></br>
-          <h2>Login</h2>
+          <h2>Outcome-Based Education (Attainments)</h2>
+          <b><center> LOGIN </center></b><br></br>
           <input
             className="form-input"
             name="userId"
@@ -84,5 +79,4 @@ const Login = () => {
     </div>
   );
 };
-
 export default Login;

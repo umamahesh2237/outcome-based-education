@@ -2,7 +2,6 @@ const Regulation = require('../models/Regulation');
 
 // Add new regulation
 exports.addRegulation = async (req, res) => {
-  console.log("naveen");
   try {
     const regulations = req.body; // Expect an array
     console.log(regulations);
@@ -24,4 +23,3 @@ exports.getAllRegulations = async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch regulations', error: err.message });
   }
 };
-

@@ -22,6 +22,7 @@ function App() {
             <Route path="add-regulations" element={<AddRegulation />} />
             <Route path="add-subjects" element={<AddSubjects />} />
             <Route path="add-outcomes" element={<AddCourseOutcomes />} />
+            {/* Uncomment when ready to use */}
             {/* <Route path="define-rubrics" element={<DefineRubrics />} />
             <Route path="fetch-assessment" element={<FetchAssessmentData />} /> */}
           </Route>
