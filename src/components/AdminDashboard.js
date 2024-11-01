@@ -1,23 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation, Outlet, Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { useNavigate, Outlet } from 'react-router-dom';
 import { FaAngleDoubleLeft, FaAngleDoubleRight } from 'react-icons/fa';
-
+import { UserContext } from '../UserContext';
 import './Auth.css';
 
 function AdminDashboard() {
-  const [firstName, setFirstName] = useState(''); // Store the first name
+  const { userData, setUserData } = useContext(UserContext);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false); // Sidebar state
   const navigate = useNavigate();
-  const location = useLocation();
-  // Fetch user's first name from backend
-  useEffect(() => {
-    if (location.state && location.state.name) {
-      setFirstName(location.state.name);
-    } else {
-      console.warn("User name not found in location.state");
-    }
-  }, [location.state]);
   const handleLogout = () => {
+    setUserData(null);
     navigate('/');
   };
   // Toggle the sidebar collapse/expand
@@ -28,19 +20,18 @@ function AdminDashboard() {
   return (
     <div className="dashboard-container">
       {/* Sidebar */}
-      <div className={`sidebar ${isSidebarCollapsed ? 'collapsed' : ''}`}>
+      <div className={isSidebarCollapsed ? 'sidebar collapsed' : 'sidebar'}>
         <div className="sidebar-header">
-          <button onClick={toggleSidebar} className="collapse-button">
+          <button onClick={toggleSidebar} className="collapse-icon">
             {isSidebarCollapsed ? <FaAngleDoubleRight /> : <FaAngleDoubleLeft />}
           </button>
         </div>
         <ul>
-          {/* Add links to all the components */}
-          <li><Link to="/admin/add-regulations">Add Regulations</Link></li>
-          <li><Link to="/admin/add-subjects">Add Course Details</Link></li>
-          <li><Link to="/admin/add-outcomes">Add Course Outcomes</Link></li>
-          <li><Link to="/admin/define-rubrics">Define Rubrics</Link></li>
-          <li><Link to="/admin/fetch-assessment">Fetch Course Assessment Data</Link></li>
+          <li><a href="/admin/add-regulations"><i className="icon">📜</i> <span>Add Regulation</span></a></li>
+          <li><a href="/admin/add-subjects"><i className="icon">📘</i> <span>Add Subjects</span></a></li>
+          <li><a href="/admin/add-outcomes"><i className="icon">📊</i> <span>Add Course Outcomes</span></a></li>
+          <li><a href="/admin/define-rubrics"><i className="icon">📏</i> <span>Define Rubrics</span></a></li>
+          <li><a href="/admin/fetch-assessment"><i className="icon">📈</i> <span>Fetch Attainments Data</span></a></li>
         </ul>
       </div>
 
@@ -48,7 +39,7 @@ function AdminDashboard() {
       <div className="content">
         <button className="logout-button" onClick={handleLogout}><b>Logout</b></button>
 
-        <h2>Welcome, {firstName}!</h2> 
+        <h2>Welcome, { userData } !</h2> 
         <Outlet /> {/* This is where the routed components will appear */}
       </div>
     </div>

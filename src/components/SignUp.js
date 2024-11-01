@@ -125,7 +125,7 @@ const SignUp = () => {
           </select>
           {error && <p className="error-text">{error}</p>}
           <button type="submit" className="auth-button">
-            Sign Up
+            <b>Sign Up</b>
           </button>
           <div className="auth-links">
             <span>Registered already? </span><Link to="/">Login here</Link>

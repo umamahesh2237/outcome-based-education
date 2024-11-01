@@ -27,15 +27,10 @@ exports.signUp = async (req, res) => {
 exports.login = async (req, res) => {
   const { userId, password } = req.body;
   try {
-    console.log("inside")
     const user = await User.findOne({ 'email': userId });
-    console.log(user)
     if (!user) return res.status(400).json({ msg: 'User ID/Password is incorrect' });
-
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ msg: 'User ID/Password is incorrect' });
-    console.log("reached");
-    //const token = jwt.sign({ id: user._id, role: user.role }, 'secret', { expiresIn: '1h' });
     res.json({ name: user.firstName, role: user.role });
   } catch (error) {
     res.status(500).json({ message: 'Error logging in user' });

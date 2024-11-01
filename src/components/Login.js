@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { UserContext } from '../UserContext';
 import './Auth.css';
 const Login = () => {
+  const { setUserData } = useContext(UserContext);
   const [formData, setFormData] = useState({
     userId: '',
     password: '',
   });
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  //const [setApidata]=useState(null);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  //const {setName} = useName();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -24,12 +24,12 @@ const Login = () => {
         body: JSON.stringify(formData),
       });
       const data = await response.json();
-      //setApidata(data);
       if (response.ok) {
         alert('Login successful');     
         if (data.role === 'Admin') {
           console.log("Login response data:", data); // This should show if name is part of the response
           if (data.name) {
+            setUserData(data.name);
             navigate('/admin', { state: { name: data.name } });
           } else {
             console.warn('User name is missing in the response data');
@@ -69,7 +69,7 @@ const Login = () => {
           />
           {error && <p className="error-text">{error}</p>}
           <button type="submit" className="auth-button">
-            Login
+            <b>Login</b>
           </button>
           <div className="auth-links">
             <span>New User? </span><Link to="/signup">Click here to register</Link>

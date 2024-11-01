@@ -14,16 +14,18 @@ const AddSubjects = () => {
   useEffect(() => {
     const fetchRegulations = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/regulations/uniqueRegulations'); // Fetch unique regulations
+        const response = await axios.get('http://localhost:5000/api/regulations/uniqueRegulations'); 
         setRegulationsData(response.data);
+        console.log('Fetched regulations:', response.data); // Add this line
       } catch (error) {
         console.error('Failed to fetch unique regulations:', error);
         alert('Failed to fetch regulations. Please try again.');
       }
     };
-
+  
     fetchRegulations();
   }, []);
+  
 
   // Fetch semesters for the selected regulation
   useEffect(() => {
@@ -72,7 +74,7 @@ const AddSubjects = () => {
       alert('Please fill out all required fields.');
       return;
     }
-  
+
     // Map each course to include regulation and semester
     const coursesData = courses.map((course) => ({
       regulation,
@@ -80,7 +82,7 @@ const AddSubjects = () => {
       courseName: course.courseName,
       courseCode: course.courseCode,
     }));
-  
+
     try {
       await axios.post('http://localhost:5000/api/courses/addCourse', { courses: coursesData });
       alert('Subject data saved successfully!');
@@ -94,47 +96,49 @@ const AddSubjects = () => {
       alert('Failed to save subject data. Please try again.');
     }
   };
+  
   return (
     <div>
       <form onSubmit={handleSubmit} className="regulation-form">
         <h3>Add Course Details</h3>
-        
-        {/* Select Regulation */}
-        <div className="input-field">
-          <label>Select Regulation</label>
-          <select
-            value={regulation}
-            onChange={(e) => handleRegulationChange(e.target.value)}
-            required
-            className="form-input"
-          >
-            <option value="">Select</option>
-            {regulationsData.map((reg, i) => (
-              <option key={i} value={reg}>
-                {reg}
-              </option>
-            ))}
-          </select>
-        </div>
+        <hr></hr>
+        <div className="regulation-inputs">
+          {/* Select Regulation */}
+          <div className="input-field">
+            <label>Select Regulation</label>
+            <select
+              value={regulation}
+              onChange={(e) => handleRegulationChange(e.target.value)}
+              required
+              className="form-input"
+            >
+              <option value="">Select</option>
+              {regulationsData.map((reg, i) => (
+                <option key={i} value={reg.regulation}>
+                  {reg.regulation}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        {/* Static Semester Dropdown */}
-        <div className="input-field">
-          <label>Select Semester</label>
-          <select
-            value={semester}
-            onChange={(e) => handleSemesterChange(e.target.value)}
-            required
-            className="form-input"
-          >
-            <option value="">Select</option>
-            {semesterOptions.map((sem, i) => (
-              <option key={i} value={sem}>
-                {sem}
-              </option>
-            ))}
-          </select>
-        </div>
-
+          {/* Static Semester Dropdown */}
+          <div className="input-field">
+            <label>Select Semester</label>
+            <select
+              value={semester}
+              onChange={(e) => handleSemesterChange(e.target.value)}
+              required
+              className="form-input"
+            >
+              <option value="">Select</option>
+              {semesterOptions.map((sem, i) => (
+                <option key={i} value={sem}>
+                  {sem}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>        
         {/* Course Details */}
         {courses.map((course, index) => (
           <div key={index} className="regulation-inputs">

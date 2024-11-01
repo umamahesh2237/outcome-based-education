@@ -1,103 +1,138 @@
 import React, { useState, useEffect } from 'react';
-import { FaPlus } from 'react-icons/fa';
 import axios from 'axios';
+import { FaPlus } from 'react-icons/fa';
 import './Auth.css';
 
 const AddCourseOutcomes = () => {
-  const [courseOutcomes, setCourseOutcomes] = useState([
-    { regulation: '', semester: '', courseName: '', courseCode: '', outcomes: ['', '', '', '', '', ''], rubrics: [{ rubric: '', mappedOutcomes: '', totalMarks: '' }] }
-  ]);
-  const [regulations, setRegulations] = useState([]);
-  const [semesters, setSemesters] = useState([]);
-  const [courseNames, setCourseNames] = useState([]);
+  const [regulation, setRegulation] = useState('');
+  const [semester, setSemester] = useState('');
+  const [courseName, setCourseName] = useState('');
+  const [courseCode, setCourseCode] = useState('');
+  const [courseId, setCourseId] = useState(''); // Store the selected course ID
+  const [regulationsData, setRegulationsData] = useState([]);
+  const [semesterOptions, setSemesterOptions] = useState([]);
+  const [courseOptions, setCourseOptions] = useState([]);
+  const [courseOutcomes, setCourseOutcomes] = useState(Array(6).fill(''));
+  const [rubrics, setRubrics] = useState([{ rubricId: '', mappedOutcomes: '', totalMarks: 0 }]);
 
-  // Fetch regulations on component mount
   useEffect(() => {
     const fetchRegulations = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/regulations');
-        setRegulations(response.data.sort((a, b) => a.name.localeCompare(b.name))); // Sort regulations in ascending order
+        const response = await axios.get('http://localhost:5000/api/regulations/uniqueRegulations');
+        setRegulationsData(response.data);
       } catch (error) {
-        console.error('Error fetching regulations:', error);
+        console.error('Failed to fetch unique regulations:', error);
+        alert('Failed to fetch regulations. Please try again.');
       }
     };
     fetchRegulations();
   }, []);
 
-  // Fetch semesters based on selected regulation
-  const fetchSemesters = async (regulation) => {
-    try {
-      const response = await axios.get(`http://localhost:5000/api/regulations?regulation=${semesters}`);
-      setSemesters(response.data);
-    } catch (error) {
-      console.error('Error fetching semesters:', error);
-    }
+  useEffect(() => {
+    const fetchSemesters = async () => {
+      if (regulation) {
+        try {
+          const response = await axios.get(`http://localhost:5000/api/regulations/semesters/${regulation}`);
+          setSemesterOptions(response.data);
+        } catch (error) {
+          console.error('Failed to fetch semesters:', error);
+          alert('Failed to fetch semesters. Please try again.');
+        }
+      }
+    };
+    fetchSemesters();
+  }, [regulation]);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      if (regulation && semester) {
+        try {
+          const response = await axios.get(`http://localhost:5000/api/courses/${regulation}/${semester}`);
+          setCourseOptions(response.data); // Store _id along with courseName and courseCode
+        } catch (error) {
+          console.error('Failed to fetch courses:', error);
+          alert('Failed to fetch courses. Please try again.');
+        }
+      }
+    };
+    fetchCourses();
+  }, [regulation, semester]);
+
+  const handleRegulationChange = (value) => {
+    setRegulation(value);
+    setSemester('');
+    setCourseName('');
+    setCourseCode('');
+    setCourseId(''); // Reset course ID
+    setSemesterOptions([]);
+    setCourseOptions([]);
   };
 
-  // Fetch courses based on selected regulation and semester
-  const fetchCourses = async (regulation, semester) => {
-    try {
-      const response = await axios.get(`http://localhost:5000/api/courses?regulation=${regulation}&semester=${semester}`);
-      setCourseNames(response.data);
-    } catch (error) {
-      console.error('Error fetching courses:', error);
-    }
+  const handleSemesterChange = (value) => {
+    setSemester(value);
+    setCourseName('');
+    setCourseCode('');
+    setCourseId(''); // Reset course ID
   };
 
-  // Handle changes for regulation and semester
-  const handleRegulationChange = (index, value) => {
+  const handleCourseNameChange = (value) => {
+    const selectedCourse = courseOptions.find((course) => course.courseName === value);
+    setCourseName(value);
+    setCourseCode(selectedCourse ? selectedCourse.courseCode : '');
+    setCourseId(selectedCourse ? selectedCourse._id : ''); // Store the course _id
+  };
+
+  const handleCourseOutcomeChange = (index, value) => {
     const updatedOutcomes = [...courseOutcomes];
-    updatedOutcomes[index].regulation = value;
-    updatedOutcomes[index].semester = '';
-    updatedOutcomes[index].courseName = '';
-    updatedOutcomes[index].courseCode = '';
-    setCourseOutcomes(updatedOutcomes);
-    fetchSemesters(value);
-  };
-
-  const handleSemesterChange = (index, value) => {
-    const updatedOutcomes = [...courseOutcomes];
-    updatedOutcomes[index].semester = value;
-    updatedOutcomes[index].courseName = '';
-    updatedOutcomes[index].courseCode = '';
-    setCourseOutcomes(updatedOutcomes);
-    fetchCourses(courseOutcomes[index].regulation, value);
-  };
-
-  const handleCourseNameChange = (index, value) => {
-    const updatedOutcomes = [...courseOutcomes];
-    updatedOutcomes[index].courseName = value;
-    const selectedCourse = courseNames.find(course => course.name === value);
-    updatedOutcomes[index].courseCode = selectedCourse ? selectedCourse.code : '';
+    updatedOutcomes[index] = value;
     setCourseOutcomes(updatedOutcomes);
   };
 
-  const handleOutcomeChange = (index, outcomeIndex, value) => {
-    const updatedOutcomes = [...courseOutcomes];
-    updatedOutcomes[index].outcomes[outcomeIndex] = value;
-    setCourseOutcomes(updatedOutcomes);
+  const handleRubricChange = (index, field, value) => {
+    const updatedRubrics = [...rubrics];
+    updatedRubrics[index][field] = field === 'totalMarks' ? parseInt(value, 10) : value;
+    setRubrics(updatedRubrics);
   };
 
-  const handleRubricChange = (index, rubricIndex, field, value) => {
-    const updatedOutcomes = [...courseOutcomes];
-    updatedOutcomes[index].rubrics[rubricIndex][field] = value;
-    setCourseOutcomes(updatedOutcomes);
+  const addMoreRubric = () => {
+    setRubrics([...rubrics, { rubricId: '', mappedOutcomes: '', totalMarks: 0 }]);
   };
 
-  const addMoreRubric = (index) => {
-    const updatedOutcomes = [...courseOutcomes];
-    updatedOutcomes[index].rubrics.push({ rubric: '', mappedOutcomes: '', totalMarks: '' });
-    setCourseOutcomes(updatedOutcomes);
+  const resetForm = () => {
+    setCourseOutcomes(Array(6).fill(''));
+    setRubrics([{ rubricId: '', mappedOutcomes: '', totalMarks: 0 }]);
+    setRegulation('');
+    setSemester('');
+    setCourseName('');
+    setCourseCode('');
+    setCourseId('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!regulation || !semester || !courseId || courseOutcomes.some(co => !co.trim())) {
+      alert('Please fill out all required fields.');
+      return;
+    }
+
+    const courseOutcomesData = {
+      course: courseId, // Use courseId instead of course details
+      courseOutcomes: courseOutcomes.filter(outcome => outcome.trim() !== ''),
+      rubricMapping: rubrics.map(rubric => ({
+        rubricId: rubric.rubricId,
+        mappedOutcomes: rubric.mappedOutcomes.split(',').map(co => co.trim()),
+        totalMarks: rubric.totalMarks,
+      })),
+    };
+
     try {
-      await axios.post('http://localhost:5000/api/course-outcomes', courseOutcomes);
-      alert('Course Outcomes data saved successfully!');
-      setCourseOutcomes([{ regulation: '', semester: '', courseName: '', courseCode: '', outcomes: ['', '', '', '', '', ''], rubrics: [{ rubric: '', mappedOutcomes: '', totalMarks: '' }] }]);
+      await axios.post('http://localhost:5000/api/course-outcomes/add', courseOutcomesData);
+      alert('Course outcomes saved successfully!');
+      resetForm();
     } catch (error) {
-      console.error('Failed to save course outcome data:', error);
+      console.error('Failed to save course outcomes:', error.response || error);
+      alert('Failed to save course outcomes. Please try again.');
     }
   };
 
@@ -105,123 +140,117 @@ const AddCourseOutcomes = () => {
     <div>
       <form onSubmit={handleSubmit} className="regulation-form">
         <h3>Add Course Outcomes</h3>
-        {courseOutcomes.map((outcome, index) => (
-          <div key={index} className="regulation-inputs">
-            {/* Panel 1 Inputs */}
-              <div className="input-field">
-                <label>Select Regulation</label>
-                <select
-                  value={outcome.regulation}
-                  onChange={(e) => handleRegulationChange(index, e.target.value)}
-                  required
-                  className="form-input"
-                >
-                  <option value="">Select</option>
-                  {regulations.map((reg, i) => (
-                    <option key={i} value={reg.name}>{reg.name}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="input-field">
-                <label>Select Semester</label>
-                <select
-                  value={outcome.semester}
-                  onChange={(e) => handleSemesterChange(index, e.target.value)}
-                  required
-                  className="form-input"
-                >
-                  <option value="">Select</option>
-                  {semesters.map((sem, i) => (
-                    <option key={i} value={sem}>{sem}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="input-field">
-                <label>Select Course Name</label>
-                <select
-                  value={outcome.courseName}
-                  onChange={(e) => handleCourseNameChange(index, e.target.value)}
-                  required
-                  className="form-input"
-                >
-                  <option value="">Select</option>
-                  {courseNames.map((course, i) => (
-                    <option key={i} value={course.name}>{course.name}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="input-field">
-                <label>Course Code</label>
-                <input type="text" value={outcome.courseCode} readOnly className="form-input" />
-              </div>
-            <div className="regulation-inputs">
-              {[...Array(6)].map((_, i) => (
-                <div key={i} className="input-field full-width">
-                  <label>Course Outcome {i + 1}</label>
-                  <input
-                    type="text"
-                    value={outcome.outcomes[i]}
-                    onChange={(e) => handleOutcomeChange(index, i, e.target.value)}
-                    className="form-input"
-                    placeholder={`Enter CO${i + 1}`}
-                    required={i < 5}
-                  />
-                </div>
+        <hr />
+        <div className="regulation-inputs">
+          <div className="input-field">
+            <label>Select Regulation</label>
+            <select
+              value={regulation || ''}
+              onChange={(e) => handleRegulationChange(e.target.value)}
+              required
+              className="form-input"
+            >
+              <option value="">Select</option>
+              {regulationsData.map((reg, i) => (
+                <option key={i} value={reg.regulation}>{reg.regulation}</option>
               ))}
-            </div>
+            </select>
+          </div>
 
-            {/* Panel 2 Inputs: Rubrics */}
-            <h3>Add Rubrics | Map with Outcomes</h3>
-            {outcome.rubrics.map((rubric, rubricIndex) => (
-              <div key={rubricIndex} className="regulation-inputs expanded-fields">
-                <div className="input-field">
-                  <label>Enter Rubric</label>
-                  <input
-                    type="text"
-                    value={rubric.rubric}
-                    onChange={(e) => handleRubricChange(index, rubricIndex, 'rubric', e.target.value)}
-                    required
-                    className="form-input"
-                  />
-                </div>
+          <div className="input-field">
+            <label>Select Semester</label>
+            <select
+              value={semester || ''}
+              onChange={(e) => handleSemesterChange(e.target.value)}
+              required
+              className="form-input"
+              disabled={!semesterOptions.length}
+            >
+              <option value="">Select</option>
+              {semesterOptions.map((sem, i) => (
+                <option key={i} value={sem}>{sem}</option>
+              ))}
+            </select>
+          </div>
 
-                <div className="input-field">
-                  <label>Course Outcomes Mapped</label>
-                  <input
-                    type="text"
-                    value={rubric.mappedOutcomes}
-                    onChange={(e) => handleRubricChange(index, rubricIndex, 'mappedOutcomes', e.target.value)}
-                    placeholder="e.g., CO1, CO2"
-                    required
-                    className="form-input"
-                  />
-                </div>
+          <div className="input-field">
+            <label>Select Course Name</label>
+            <select
+              value={courseName || ''}
+              onChange={(e) => handleCourseNameChange(e.target.value)}
+              required
+              className="form-input"
+            >
+              <option value="">Select</option>
+              {courseOptions.map((course, i) => (
+                <option key={i} value={course.courseName}>{course.courseName}</option>
+              ))}
+            </select>
+          </div>
 
-                <div className="input-field">
-                  <label>Total Marks Allotted</label>
-                  <input
-                    type="number"
-                    value={rubric.totalMarks}
-                    onChange={(e) => handleRubricChange(index, rubricIndex, 'totalMarks', e.target.value)}
-                    required
-                    className="form-input"
-                  />
-                </div>
-              </div>
-            ))}
+          <div className="input-field">
+            <label>Course Code</label>
+            <input type="text" value={courseCode || ''} readOnly className="form-input" />
+          </div>
+        </div>
 
-            <button type="button" onClick={() => addMoreRubric(index)} className="add-button">
-            <FaPlus /> <b>Add More</b>
-            </button>
+        {courseOutcomes.map((outcome, i) => (
+          <div key={i} className="input-field">
+            <label>Course Outcome {i + 1}</label>
+            <input
+              type="text"
+              value={outcome || ''}
+              onChange={(e) => handleCourseOutcomeChange(i, e.target.value)}
+              className="form-input"
+              placeholder={`Enter CO${i + 1}`}
+            />
           </div>
         ))}
 
-        <button type="submit" className="submit-button">
-          <b>Submit</b>
+        <h3>Add Rubrics | Map with Outcomes</h3>
+        <hr />
+        {rubrics.map((rubric, rubricIndex) => (
+          <div key={rubricIndex} className="regulation-inputs expanded-fields">
+            <div className="input-field">
+              <label>Enter Rubric</label>
+              <input
+                type="text"
+                value={rubric.rubricId || ''}
+                onChange={(e) => handleRubricChange(rubricIndex, 'rubricId', e.target.value)}
+                required
+                className="form-input"
+              />
+            </div>
+
+            <div className="input-field">
+              <label>Course Outcomes Mapped</label>
+              <input
+                type="text"
+                value={rubric.mappedOutcomes || ''}
+                onChange={(e) => handleRubricChange(rubricIndex, 'mappedOutcomes', e.target.value)}
+                placeholder="e.g., CO1, CO2"
+                required
+                className="form-input"
+              />
+            </div>
+
+            <div className="input-field">
+              <label>Total Marks Allotted</label>
+              <input
+                type="number"
+                value={rubric.totalMarks || 0}
+                onChange={(e) => handleRubricChange(rubricIndex, 'totalMarks', e.target.value)}
+                required
+                className="form-input"
+              />
+            </div>
+          </div>
+        ))}
+
+        <button type="button" onClick={addMoreRubric} className="add-button">
+          <FaPlus /> <b>Add More</b>
         </button>
+        <button type="submit" className="submit-button"><b>Submit</b></button>
       </form>
     </div>
   );

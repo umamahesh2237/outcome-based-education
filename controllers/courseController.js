@@ -24,12 +24,16 @@ exports.addCourse = async (req, res) => {
 
 // Get courses by regulation and semester
 exports.getCoursesByRegulationAndSemester = async (req, res) => {
+  const { regulation, semester } = req.params; // use req.params instead of req.query
+
   try {
-    const { regulation, semester } = req.query; // Adjusted to accept string values for regulation and semester
     const courses = await Course.find({ regulation, semester });
-    res.status(200).json(courses);
-  } catch (err) {
-    console.error('Error in getCoursesByRegulationAndSemester:', err.message);
-    res.status(500).json({ message: 'Failed to fetch courses', error: err.message });
+    if (courses.length > 0) {
+      res.status(200).json(courses);
+    } else {
+      res.status(404).json({ message: 'No courses found for the selected regulation and semester.' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to fetch courses', error: error.message });
   }
 };

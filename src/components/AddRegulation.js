@@ -35,6 +35,7 @@ function AddRegulation() {
     <div>
       <form onSubmit={handleSubmit} className="regulation-form">
         <h3>Add Regulation</h3>
+        <hr></hr>
         {regulations.map((reg, index) => (
           <div key={index} className="regulation-inputs">
             <div className="input-field">

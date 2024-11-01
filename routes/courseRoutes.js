@@ -5,7 +5,7 @@ const courseController = require('../controllers/courseController');
 // Route to add a new course
 router.post('/addCourse', courseController.addCourse);
 
-// Route to get courses by regulation and semester
-router.get('/by-regulation-semester', courseController.getCoursesByRegulationAndSemester);
+// Route to get courses by regulation and semester (updated with route parameters)
+router.get('/:regulation/:semester', courseController.getCoursesByRegulationAndSemester);
 
 module.exports = router;
