@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+# Outcome-Based Education (Attainments)
+  This is an In-House Project of Geethanjali College of Engineering and Technology.
+## Abstract
+* Outcome-based education (OBE) Attainments is an educational approach focused on defining and achieving specific outcomes that reflect what students should know and be able to do after completing a course or program. It ensures that teaching, assessment, and feedback are aligned with these outcomes, promoting continuous improvement in educational quality.
+* Course Outcomes (COs) are specific learning goals for each course. Rubrics link COs to assessment elements, where student performance is evaluated, and average percentages determine attainment levels. This structured process ensures course content aligns with measurable student learning achievements. 
+* Program Outcomes (POs) are broader skills and competencies students acquire across the program, which are pre-defined by the National Board of Accreditation (NBA). COs map to POs, ensuring that individual course achievements contribute to overall program goals. This mapping is key to assessing program effectiveness and graduate readiness. 
+* Program Educational Objectives (PEOs) represent the long-term achievements expected from graduates, including career success and societal impact. PEOs are informed by CO and PO data, creating a cohesive framework that connects course-level learning with broader program goals. This project is developed using the tech stack of React, Node.js, HTML, CSS, Bootstrap, and MongoDB.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Existing System
+* The existing system is as follows and has few issues with obtaining Outcome-Based Attainments for all the courses of a given regulation:
+  - The course outcomes and CO-PO mappings of a course in the current regulation are being consecutively used by the faculty coordinators of upcoming semesters; while they keep changing for every new regulation. It is causing an issue of making a record of attainments properly.
+  - Providing access to the confidential Excel sheets to the faculty to enter the student marks, is causing a problem again due to human errors, layout changes, accidental data deletion, modification of marks, etc. The admin must re-check for correctness of every aspect which is a tiresome task.
+  - The calculation formulae related to every course rubric are explicitly written by the admin according to the type of course and what rubric is considered. This in itself is a huge task and is burdensome for the admin to manage the same for all the courses in the regulation. 
 
-## Available Scripts
+## Proposed System
+* The proposed system will contain the following:
+  - Admin-privileged system to maintain the Course Attainments. 
+  - Admin will assign COs and CO-PO mappings to courses and then map each course with a course coordinator.
+  - Faculty access is provided to upload the marks obtained by students for those rubrics.
+* The proposed system will automate the entire process – from calculating the percentages for each rubric to calculating the level of attainments and then mapping them with the CO-PO table. 
+  - Also, with a few more averaging operations, the overall attainments are obtained for all COs.
+  - This system will help the admin to efficiently maintain the course attainments with minimum (or) no human error. Automation of this calculation process will help coordinators and admins streamline the academic regulation works in an easier way. 
 
-In the project directory, you can run:
+## Hardware Requirements
+1. Processor: Intel Core i5 or higher (or equivalent)
+2. RAM: Minimum 8 GB (16 GB recommended for better performance)
+3. Storage: At least 100 GB of free space (SSD recommended for faster performance)
+4. Display: 1366 x 768 resolution or higher
+5. Internet Connectivity: Stable broadband connection for development and testing
+6. Peripherals: Standard keyboard, mouse, and monitor
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Software Requirements
+1. Operating System: Windows 10/11, macOS, or Linux (Ubuntu 20.04 or higher)
+2. Code Editor/IDE: Visual Studio Code or any preferred code editor
+3. Backend Framework: Node.js with Express.js
+4. Frontend Libraries/Frameworks: React.js, HTML, CSS, Bootstrap
+5. Database: MongoDB (local setup or cloud-based like MongoDB Atlas)
+6. Version Control: Git (with GitHub or GitLab for repository management)
+7. Package Manager: npm (Node Package Manager) for installing dependencies
+8. Browser: Chrome, Firefox, or any modern web browser for testing
+9. Runtime Environment: Node.js (version 14.x or higher)
+10. Security Libraries: bcrypt for password encryption
