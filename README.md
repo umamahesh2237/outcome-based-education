@@ -1,5 +1,5 @@
 # Outcome-Based Education (Attainments)
-This is an In-House Project of Geethanjali College of Engineering and Technology.
+  This is an In-House Project of Geethanjali College of Engineering and Technology.
 ## Abstract
 * Outcome-based education (OBE) Attainments is an educational approach focused on defining and achieving specific outcomes that reflect what students should know and be able to do after completing a course or program. It ensures that teaching, assessment, and feedback are aligned with these outcomes, promoting continuous improvement in educational quality.
 * Course Outcomes (COs) are specific learning goals for each course. Rubrics link COs to assessment elements, where student performance is evaluated, and average percentages determine attainment levels. This structured process ensures course content aligns with measurable student learning achievements. 
@@ -8,18 +8,18 @@ This is an In-House Project of Geethanjali College of Engineering and Technology
 
 ## Existing System
 * The existing system is as follows and has few issues with obtaining Outcome-Based Attainments for all the courses of a given regulation:
-- The course outcomes and CO-PO mappings of a course in the current regulation are being consecutively used by the faculty coordinators of upcoming semesters; while they keep changing for every new regulation. It is causing an issue of making a record of attainments properly.
-- Providing access to the confidential Excel sheets to the faculty to enter the student marks, is causing a problem again due to human errors, layout changes, accidental data deletion, modification of marks, etc. The admin must re-check for correctness of every aspect which is a tiresome task.
-- The calculation formulae related to every course rubric are explicitly written by the admin according to the type of course and what rubric is considered. This in itself is a huge task and is burdensome for the admin to manage the same for all the courses in the regulation. 
+  - The course outcomes and CO-PO mappings of a course in the current regulation are being consecutively used by the faculty coordinators of upcoming semesters; while they keep changing for every new regulation. It is causing an issue of making a record of attainments properly.
+  - Providing access to the confidential Excel sheets to the faculty to enter the student marks, is causing a problem again due to human errors, layout changes, accidental data deletion, modification of marks, etc. The admin must re-check for correctness of every aspect which is a tiresome task.
+  - The calculation formulae related to every course rubric are explicitly written by the admin according to the type of course and what rubric is considered. This in itself is a huge task and is burdensome for the admin to manage the same for all the courses in the regulation. 
 
 ## Proposed System
 * The proposed system will contain the following:
-- Admin-privileged system to maintain the Course Attainments. 
-- Admin will assign COs and CO-PO mappings to courses and then map each course with a course coordinator.
-- Faculty access is provided to upload the marks obtained by students for those rubrics.
+  - Admin-privileged system to maintain the Course Attainments. 
+  - Admin will assign COs and CO-PO mappings to courses and then map each course with a course coordinator.
+  - Faculty access is provided to upload the marks obtained by students for those rubrics.
 * The proposed system will automate the entire process – from calculating the percentages for each rubric to calculating the level of attainments and then mapping them with the CO-PO table. 
-- Also, with a few more averaging operations, the overall attainments are obtained for all COs.
-- This system will help the admin to efficiently maintain the course attainments with minimum (or) no human error. Automation of this calculation process will help coordinators and admins streamline the academic regulation works in an easier way. 
+  - Also, with a few more averaging operations, the overall attainments are obtained for all COs.
+  - This system will help the admin to efficiently maintain the course attainments with minimum (or) no human error. Automation of this calculation process will help coordinators and admins streamline the academic regulation works in an easier way. 
 
 ## Hardware Requirements
 1. Processor: Intel Core i5 or higher (or equivalent)
