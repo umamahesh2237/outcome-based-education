@@ -1,10 +1,7 @@
-# Outcome-Based Education (Attainments)
-  This is an In-House Project of Geethanjali College of Engineering and Technology.
+# GCET Outcome-Based Education Platform
+  
 ## Abstract
-* Outcome-based education (OBE) Attainments is an educational approach focused on defining and achieving specific outcomes that reflect what students should know and be able to do after completing a course or program. It ensures that teaching, assessment, and feedback are aligned with these outcomes, promoting continuous improvement in educational quality.
-* Course Outcomes (COs) are specific learning goals for each course. Rubrics link COs to assessment elements, where student performance is evaluated, and average percentages determine attainment levels. This structured process ensures course content aligns with measurable student learning achievements. 
-* Program Outcomes (POs) are broader skills and competencies students acquire across the program, which are pre-defined by the National Board of Accreditation (NBA). COs map to POs, ensuring that individual course achievements contribute to overall program goals. This mapping is key to assessing program effectiveness and graduate readiness. 
-* Program Educational Objectives (PEOs) represent the long-term achievements expected from graduates, including career success and societal impact. PEOs are informed by CO and PO data, creating a cohesive framework that connects course-level learning with broader program goals. This project is developed using the tech stack of React, Node.js, HTML, CSS, Bootstrap, and MongoDB.
+GCET Outcome-Based Education Platform aims to host a structured, automated system for tracking and calculating student learning achievements across various academic courses. Designed for academic administrators and faculty, this system facilitates accurate, consistent, and efficient monitoring of course outcomes (COs) and their mapping to broader program outcomes (POs), which are pre-defined by the National Board of Accreditation (NBA). By aligning individual course-level achievements with overarching program goals, this tool empowers educators to improve instructional quality and better prepare students to meet career and societal demands. The existing process of manual data entry and attainment calculations is prone to human error, making it challenging to maintain accurate records, especially for regulations that change periodically. Our proposed system addresses these limitations by automating the collection and analysis of student marks, mapping them to COs, and calculating attainment levels based on rubric-based assessments. It leverages a tech stack comprising React, Node.js, HTML, CSS, Bootstrap, and MongoDB to streamline operations and ensure minimal manual intervention. Using this system, administrators can oversee attainment levels across multiple courses, while faculty can upload marks with greater security and reduced risk of error. The automated calculation of CO and PO attainments, followed by their alignment with the learning objectives, enables a more cohesive approach to tracking and improving academic quality and graduate preparedness. Ultimately, the project provides a scalable framework for academic institutions, fostering a culture of continuous improvement.
 
 ## Existing System
 * The existing system is as follows and has few issues with obtaining Outcome-Based Attainments for all the courses of a given regulation:
@@ -23,20 +20,20 @@
 
 ## Hardware Requirements
 1. Processor: Intel Core i5 or higher (or equivalent)
-2. RAM: Minimum 8 GB (16 GB recommended for better performance)
+2. RAM: 16 GB
 3. Storage: At least 100 GB of free space (SSD recommended for faster performance)
 4. Display: 1366 x 768 resolution or higher
-5. Internet Connectivity: Stable broadband connection for development and testing
+5. Internet Connectivity: For development and testing
 6. Peripherals: Standard keyboard, mouse, and monitor
 
-## Software Requirements
-1. Operating System: Windows 10/11, macOS, or Linux (Ubuntu 20.04 or higher)
-2. Code Editor/IDE: Visual Studio Code or any preferred code editor
+## Softwares Used:
+1. Operating System: Windows 10
+2. Code Editor/IDE: Visual Studio Code
 3. Backend Framework: Node.js with Express.js
 4. Frontend Libraries/Frameworks: React.js, HTML, CSS, Bootstrap
-5. Database: MongoDB (local setup or cloud-based like MongoDB Atlas)
-6. Version Control: Git (with GitHub or GitLab for repository management)
-7. Package Manager: npm (Node Package Manager) for installing dependencies
-8. Browser: Chrome, Firefox, or any modern web browser for testing
+5. Database: MongoDB
+6. Version Control: Git (with GitHub)
+7. Package Manager: npm
+8. Browser: Google Chrome
 9. Runtime Environment: Node.js (version 14.x or higher)
-10. Security Libraries: bcrypt for password encryption
+10. Security Libraries: bcrypt
